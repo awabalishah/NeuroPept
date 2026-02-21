@@ -177,10 +177,14 @@ const ManufacturingProcess = () => (
                             "At NeuroPept, manufacturing isn't just a process; it's a commitment to scientific precision. We ensure that every peptide leaving our laboratory meets the exact specifications required for cutting-edge research."
                         </p>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                            <div style={{ width: '48px', height: '48px', background: '#CBD5E1', borderRadius: '50%' }}></div>
+                            <img
+                                src="https://images.unsplash.com/photo-1559839734-2b71ef15995b?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Head of Synthesis"
+                                style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #06B6D4' }}
+                            />
                             <div>
-                                <p style={{ fontWeight: 700 }}>Head of Synthesis</p>
-                                <p style={{ fontSize: '0.85rem', color: '#64748B' }}>NeuroPept Manufacturing Facility</p>
+                                <p style={{ fontWeight: 700 }}>Dr. Aris V., Ph.D.</p>
+                                <p style={{ fontSize: '0.85rem', color: '#64748B' }}>Head of Synthesis, NeuroPept</p>
                             </div>
                         </div>
                     </div>
