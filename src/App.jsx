@@ -16,7 +16,8 @@ import {
     FileText,
     Users,
     Building2,
-    MessageSquare
+    MessageSquare,
+    X
 } from 'lucide-react';
 
 const Navbar = () => (
@@ -178,12 +179,12 @@ const ManufacturingProcess = () => (
                         </p>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                             <img
-                                src="https://images.unsplash.com/photo-1559839734-2b71ef15995b?auto=format&fit=crop&q=80&w=150&h=150"
-                                alt="Head of Synthesis"
+                                src="/assets/aris-gunawan.jpg"
+                                alt="Aris Gunawan"
                                 style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #06B6D4' }}
                             />
                             <div>
-                                <p style={{ fontWeight: 700 }}>Dr. Aris V., Ph.D.</p>
+                                <p style={{ fontWeight: 700 }}>Aris Gunawan</p>
                                 <p style={{ fontSize: '0.85rem', color: '#64748B' }}>Head of Synthesis, NeuroPept</p>
                             </div>
                         </div>
@@ -321,7 +322,61 @@ const Contact = () => {
     );
 };
 
-const Footer = () => (
+const LegalModal = ({ isOpen, onClose, title, content }) => {
+    if (!isOpen) return null;
+
+    return (
+        <div style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(15, 23, 42, 0.8)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 3000,
+            padding: '20px',
+            backdropFilter: 'blur(4px)'
+        }} onClick={onClose}>
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                style={{
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: '16px',
+                    width: '100%',
+                    maxWidth: '800px',
+                    maxHeight: '90vh',
+                    overflowY: 'auto',
+                    padding: '3rem',
+                    position: 'relative',
+                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }}
+                onClick={e => e.stopPropagation()}
+            >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                    <h2 style={{ fontSize: '2rem', margin: 0 }}>{title}</h2>
+                    <button
+                        onClick={onClose}
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', color: '#64748B' }}
+                    >
+                        <X size={24} />
+                    </button>
+                </div>
+                <div style={{ color: '#334155', lineHeight: 1.8, fontSize: '1rem' }}>
+                    {content}
+                </div>
+                <div style={{ marginTop: '3rem', borderTop: '1px solid #E2E8F0', paddingTop: '1.5rem', textAlign: 'right' }}>
+                    <button className="btn-scientific" onClick={onClose}>Close</button>
+                </div>
+            </motion.div>
+        </div>
+    );
+};
+
+const Footer = ({ onLegalClick }) => (
     <footer style={{ padding: '60px 0', background: '#0F172A', color: '#94A3B8' }}>
         <div className="container">
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '4rem', marginBottom: '4rem' }}>
@@ -353,9 +408,9 @@ const Footer = () => (
                 <div>
                     <h4 style={{ color: '#FFFFFF', marginBottom: '1.5rem' }}>Legal</h4>
                     <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.8rem', fontSize: '0.9rem' }}>
-                        <li><a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Terms of Service</a></li>
-                        <li><a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Privacy Policy</a></li>
-                        <li><a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Imprint</a></li>
+                        <li><button onClick={() => onLegalClick('tos')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', padding: 0, font: 'inherit' }}>Terms of Service</button></li>
+                        <li><button onClick={() => onLegalClick('privacy')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', padding: 0, font: 'inherit' }}>Privacy Policy</button></li>
+                        <li><button onClick={() => onLegalClick('imprint')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', padding: 0, font: 'inherit' }}>Imprint</button></li>
                     </ul>
                 </div>
             </div>
@@ -378,6 +433,73 @@ const StickyContactButtons = () => (
 );
 
 export default function App() {
+    const [legalType, setLegalType] = useState(null);
+
+    const legalContent = {
+        tos: {
+            title: "Terms of Service",
+            content: (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                    <section>
+                        <h4 style={{ color: '#0F172A', marginBottom: '0.5rem' }}>1. Research Use Only</h4>
+                        <p>All products supplied by NeuroPept are strictly for research and development purposes and are NOT intended for human or veterinary use, medical treatment, diagnostics, or clinical applications. Statements made on this website have not been evaluated by the U.S. Food and Drug Administration (FDA).</p>
+                    </section>
+                    <section>
+                        <h4 style={{ color: '#0F172A', marginBottom: '0.5rem' }}>2. Compliance & Responsibility</h4>
+                        <p>By purchasing, the user acknowledges they are experienced in handling these substances and assume all responsibility for compliance with local, state, and international laws regarding the acquisition and use of research peptides.</p>
+                    </section>
+                    <section>
+                        <h4 style={{ color: '#0F172A', marginBottom: '0.5rem' }}>3. Sales & Returns</h4>
+                        <p>All sales are final. Due to the sensitive nature of research chemicals and the need to maintain cold-chain integrity and purity standards, we cannot accept returns on products once they have left our facility.</p>
+                    </section>
+                    <section>
+                        <h4 style={{ color: '#0F172A', marginBottom: '0.5rem' }}>4. Indemnification</h4>
+                        <p>The purchaser agrees to indemnify and hold NeuroPept harmless from all claims, expenses, losses, or liabilities arising out of the handling or use of the supplied products.</p>
+                    </section>
+                </div>
+            )
+        },
+        privacy: {
+            title: "Privacy Policy",
+            content: (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                    <p>Effective Date: December 8th, 2025</p>
+                    <section>
+                        <h4 style={{ color: '#0F172A', marginBottom: '0.5rem' }}>Data Collection</h4>
+                        <p>We collect personal information such as name, professional email, shipping address, and order history to fulfill your research requests and provide technical support.</p>
+                    </section>
+                    <section>
+                        <h4 style={{ color: '#0F172A', marginBottom: '0.5rem' }}>Usage & Sharing</h4>
+                        <p>We use your data for order fulfillment, account management, and legal compliance. We explicitly state that we do NOT sell your personal information to third parties.</p>
+                    </section>
+                    <section>
+                        <h4 style={{ color: '#0F172A', marginBottom: '0.5rem' }}>Security</h4>
+                        <p>We implement robust physical and electronic security measures to protect your sensitive data from unauthorized access, alteration, or disclosure.</p>
+                    </section>
+                </div>
+            )
+        },
+        imprint: {
+            title: "Imprint",
+            content: (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                    <section>
+                        <h4 style={{ color: '#0F172A', marginBottom: '0.5rem' }}>Company Information</h4>
+                        <p><strong>Company Name:</strong> NeuroPept Labs</p>
+                        <p><strong>Physical Address:</strong> 400 N Tampa St STE 1550 PMB 641741, Tampa, Florida 33602-4719, US</p>
+                        <p><strong>Managing Director:</strong> Aris Gunawan</p>
+                    </section>
+                    <section>
+                        <h4 style={{ color: '#0F172A', marginBottom: '0.5rem' }}>Contact Details</h4>
+                        <p><strong>General Inquiries:</strong> contact@neuropept.solutions</p>
+                        <p><strong>Sales & Logistics:</strong> sales@neuropeptlabs.com</p>
+                        <p><strong>WhatsApp:</strong> +1 (347) 296-5740</p>
+                    </section>
+                </div>
+            )
+        }
+    };
+
     return (
         <div style={{ background: '#FFFFFF' }}>
             <Navbar />
@@ -388,8 +510,14 @@ export default function App() {
             <TechnicalDocs />
             <Wholesales />
             <Contact />
-            <Footer />
+            <Footer onLegalClick={(type) => setLegalType(type)} />
             <StickyContactButtons />
+            <LegalModal
+                isOpen={!!legalType}
+                onClose={() => setLegalType(null)}
+                title={legalType ? legalContent[legalType].title : ''}
+                content={legalType ? legalContent[legalType].content : null}
+            />
         </div>
     );
 }
