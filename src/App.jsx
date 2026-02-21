@@ -23,7 +23,7 @@ const Navbar = () => (
     <nav className="nav-sticky">
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '80px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <img src="/logo.png" alt="NeuroPept Logo" style={{ height: '40px', width: 'auto' }} />
+                <img src="/assets/logo.png" alt="NeuroPept Logo" style={{ height: '40px', width: 'auto' }} />
             </div>
             <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
                 <a href="#about" style={{ color: '#64748B', textDecoration: 'none', fontWeight: 500 }}>About us</a>
@@ -76,7 +76,7 @@ const Hero = () => (
                         boxShadow: '0 50px 100px -20px rgba(0,0,0,0.1)'
                     }}>
                         <img
-                            src="/hero.png"
+                            src="/assets/hero.jpg"
                             alt="Lab Manufacturing"
                             style={{ width: '100%', display: 'block' }}
                         />
@@ -323,7 +323,7 @@ const Footer = () => (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '4rem', marginBottom: '4rem' }}>
                 <div>
                     <div style={{ marginBottom: '1.5rem' }}>
-                        <img src="/logo.png" alt="NeuroPept Logo" style={{ height: '32px', filter: 'brightness(0) invert(1)' }} />
+                        <img src="/assets/logo.png" alt="NeuroPept Logo" style={{ height: '32px', filter: 'brightness(0) invert(1)' }} />
                     </div>
                     <p style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
                         Leading manufacturer of high-purity research peptides supporting cutting-edge scientific progress worldwide.
