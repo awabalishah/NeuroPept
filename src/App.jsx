@@ -17,30 +17,38 @@ import {
     Users,
     Building2,
     MessageSquare,
-    X
+    X,
+    Menu
 } from 'lucide-react';
 
-const Navbar = () => (
-    <nav className="nav-sticky">
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '80px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <img src="/assets/logo.png" alt="NeuroPept Logo" style={{ height: '40px', width: 'auto' }} />
+const Navbar = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    
+    return (
+        <nav className="nav-sticky">
+            <div className="container nav-container">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <img src="/assets/logo.png" alt="NeuroPept Logo" className="nav-logo" />
+                </div>
+                <div className={`nav-links ${isOpen ? 'active' : ''}`}>
+                    <a href="#about" onClick={() => setIsOpen(false)}>About us</a>
+                    <a href="#services" onClick={() => setIsOpen(false)}>Services</a>
+                    <a href="#manufacturing" onClick={() => setIsOpen(false)}>Manufacturing</a>
+                    <a href="https://acrobat.adobe.com/id/urn:aaid:sc:EU:133f815e-c8a3-4bb0-8ad9-2c4927d7a012" target="_blank" rel="noreferrer" onClick={() => setIsOpen(false)}>Catalogue</a>
+                    <a href="#contact" className="btn-scientific" style={{ padding: '0.6rem 1.5rem', fontSize: '0.95rem' }} onClick={() => setIsOpen(false)}>Contact Us</a>
+                </div>
+                <button className="hamburger-btn" onClick={() => setIsOpen(!isOpen)}>
+                    {isOpen ? <X size={28} /> : <Menu size={28} />}
+                </button>
             </div>
-            <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
-                <a href="#about" style={{ color: '#64748B', textDecoration: 'none', fontWeight: 500 }}>About us</a>
-                <a href="#services" style={{ color: '#64748B', textDecoration: 'none', fontWeight: 500 }}>Services</a>
-                <a href="#manufacturing" style={{ color: '#64748B', textDecoration: 'none', fontWeight: 500 }}>Manufacturing</a>
-                <a href="https://acrobat.adobe.com/id/urn:aaid:sc:EU:133f815e-c8a3-4bb0-8ad9-2c4927d7a012" target="_blank" style={{ color: '#64748B', textDecoration: 'none', fontWeight: 500 }}>Catalogue</a>
-                <a href="#contact" className="btn-scientific" style={{ padding: '0.6rem 1.5rem', fontSize: '0.95rem' }}>Contact Us</a>
-            </div>
-        </div>
-    </nav>
-);
+        </nav>
+    );
+};
 
 const Hero = () => (
-    <section className="manufacturing-hero" style={{ padding: '120px 0' }}>
+    <section className="manufacturing-hero">
         <div className="container">
-            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '4rem', alignItems: 'center' }}>
+            <div className="hero-grid">
                 <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -49,13 +57,13 @@ const Hero = () => (
                     <div className="badge-qc">
                         <ShieldCheck size={16} /> Ultra-High Purity Guaranteed
                     </div>
-                    <h1 style={{ fontSize: '4.5rem', lineHeight: 1, marginBottom: '2rem' }}>
+                    <h1 className="hero-title">
                         High-Purity <span className="text-cyan">Research Peptides</span> & Custom Synthesis
                     </h1>
-                    <p style={{ fontSize: '1.25rem', color: '#64748B', marginBottom: '3rem', maxWidth: '600px' }}>
+                    <p className="hero-text">
                         NeuroPept supplies ultra-high purity research peptides and custom peptide synthesis for laboratories, biotech and scientific research worldwide. Direct from our state-of-the-art manufacturing facilities.
                     </p>
-                    <div style={{ display: 'flex', gap: '1.5rem' }}>
+                    <div className="hero-actions">
                         <a href="http://wa.me/+13472965740" className="btn-scientific" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                             Request a Quote <ChevronRight size={20} />
                         </a>
@@ -105,7 +113,7 @@ const About = () => (
                 </p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2.5rem' }}>
+            <div className="about-grid">
                 <div className="card-lab">
                     <Building2 color="#06B6D4" size={40} style={{ marginBottom: '1.5rem' }} />
                     <h3>Direct Manufacturer</h3>
@@ -129,7 +137,7 @@ const About = () => (
 const ManufacturingProcess = () => (
     <section id="manufacturing">
         <div className="container">
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }}>
+            <div className="mfg-grid">
                 <div>
                     <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>Production Excellence</h2>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -150,17 +158,8 @@ const ManufacturingProcess = () => (
                                 desc: "Our standard research peptides feature 98%+ purity, with 99%+ available upon request."
                             }
                         ].map((item, idx) => (
-                            <div key={idx} style={{ display: 'flex', gap: '1.5rem' }}>
-                                <div style={{
-                                    flexShrink: 0,
-                                    width: '56px',
-                                    height: '56px',
-                                    background: 'var(--accent-soft)',
-                                    borderRadius: '12px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center'
-                                }}>
+                            <div key={idx} className="mfg-item-flex">
+                                <div className="mfg-item-icon">
                                     <item.icon color="#06B6D4" />
                                 </div>
                                 <div>
@@ -171,7 +170,7 @@ const ManufacturingProcess = () => (
                         ))}
                     </div>
                 </div>
-                <div style={{ background: '#F1F5F9', borderRadius: '24px', padding: '3rem' }}>
+                <div className="mfg-box">
                     <h3 style={{ marginBottom: '1.5rem' }}>Quality Assurance</h3>
                     <div style={{ background: '#FFFFFF', borderRadius: '12px', padding: '2rem', borderLeft: '4px solid #06B6D4' }}>
                         <p style={{ fontStyle: 'italic', color: '#475569', marginBottom: '1.5rem' }}>
@@ -204,7 +203,7 @@ const FacilityTour = () => (
                     Our laboratory utilizes the latest in solid-phase peptide synthesis (SPPS) technology, providing high precision and consistency across every batch.
                 </p>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem' }}>
+            <div className="tour-grid">
                 {[
                     { label: 'Controlled Environment', val: 'ISO Class 7' },
                     { label: 'Batch Capacity', val: '50+ Batches/Day' },
@@ -224,14 +223,14 @@ const FacilityTour = () => (
 const TechnicalDocs = () => (
     <section style={{ background: '#0F172A', color: '#FFFFFF', padding: '80px 0' }}>
         <div className="container">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className="docs-flex">
                 <div style={{ maxWidth: '600px' }}>
-                    <h2 style={{ color: '#FFFFFF', fontSize: '2.5rem', marginBottom: '1rem' }}>Technical Documentation</h2>
+                    <h2 style={{ color: '#FFFFFF', fontSize: '2.5rem', margin: '0 0 1rem 0' }}>Technical Documentation</h2>
                     <p style={{ color: '#94A3B8', fontSize: '1.1rem' }}>
                         Transparency is core to our manufacturing philosophy. Every peptide is delivered with comprehensive HPLC and Mass Spectrometry validation reports.
                     </p>
                 </div>
-                <div style={{ display: 'flex', gap: '1rem' }}>
+                <div className="docs-actions">
                     <button className="btn-scientific">Download CoA Template</button>
                     <button className="btn-outline" style={{ borderColor: '#64748B', color: '#FFFFFF' }}>QC Protocol PDF</button>
                 </div>
@@ -248,7 +247,7 @@ const Wholesales = () => (
                 We support biotech entrepreneurs and laboratories with optimized lead generation and supply chain solutions.
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+            <div className="services-grid">
                 {[
                     { title: "Volume Discounts", desc: "Competitive pricing for bulk orders tailored to large-scale research projects.", icon: FileText },
                     { title: "Custom Branding", desc: "White-label manufacturing solutions for established resellers and startups.", icon: Users },
@@ -269,14 +268,14 @@ const Contact = () => {
     return (
         <section id="contact">
             <div className="container">
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem' }}>
+                <div className="contact-grid">
                     <div>
                         <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>Get in Touch</h2>
                         <p style={{ color: '#64748B', marginBottom: '3rem', fontSize: '1.1rem' }}>
                             Have a custom request or looking to start a partnership? Our team is ready to support your research.
                         </p>
 
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+                        <div className="contact-info-flex">
                             <div style={{ display: 'flex', gap: '1.5rem' }}>
                                 <Mail color="#06B6D4" size={24} />
                                 <div>
@@ -298,10 +297,10 @@ const Contact = () => {
                         </div>
                     </div>
 
-                    <div style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', padding: '3rem', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
+                    <div className="contact-form-box">
                         <h3 style={{ marginBottom: '2rem' }}>Request a Quotation</h3>
                         <form style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                            <div className="contact-form-grid">
                                 <input type="text" placeholder="First Name" style={{ width: '100%', padding: '0.85rem', border: '1px solid #E2E8F0', borderRadius: '6px' }} />
                                 <input type="text" placeholder="Last Name" style={{ width: '100%', padding: '0.85rem', border: '1px solid #E2E8F0', borderRadius: '6px' }} />
                             </div>
@@ -379,7 +378,7 @@ const LegalModal = ({ isOpen, onClose, title, content }) => {
 const Footer = ({ onLegalClick }) => (
     <footer style={{ padding: '60px 0', background: '#0F172A', color: '#94A3B8' }}>
         <div className="container">
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '4rem', marginBottom: '4rem' }}>
+            <div className="footer-grid">
                 <div>
                     <div style={{ marginBottom: '1.5rem' }}>
                         <img src="/assets/logo.png" alt="NeuroPept Logo" style={{ height: '32px', filter: 'brightness(0) invert(1)' }} />
